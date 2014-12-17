@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.massifsource.sample.damp</groupId>
+		<groupId>com.massifsource.sample</groupId>
 		<artifactId>damp-sample</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.massifsource.sample.damp.ms</groupId>
+	<groupId>com.massifsource.sample.damp</groupId>
 	<artifactId>ms</artifactId>
 	<name>Migration Service (Sample)</name>
 	<description>Migration Service sample as part of Data Access and Migration Platform</description>
