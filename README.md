@@ -1,2 +1,0 @@
-# samples
-Java Source Code
