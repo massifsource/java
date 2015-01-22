@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.massifsource.sample.damp</groupId>
+    <groupId>com.massifsource.sample</groupId>
     <artifactId>damp-sample</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>das</artifactId>
-  <name>Data Access Service</name>
+  <name>Data Access Service (Sample)</name>
   <description>Data Access Service Sample as part of Data Access and Migration Platform</description>
 </project>

@@ -3,13 +3,91 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.massifsource.sample</groupId>
 	<artifactId>damp-sample</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Data Access and Migration Platform (Sample)</name>
 	<description>Spring based Data Access and Migration Platform Sample code</description>
 	<packaging>pom</packaging>
+	<url>http://www.massifsource.com</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<skip.checkstyle>false</skip.checkstyle>
+		<fail.on.checkstyle.violation>true</fail.on.checkstyle.violation>
+		<skip.pmd>false</skip.pmd>
+	</properties>
+	<organization>
+		<name>MassifSource</name>
+		<url>http://www.massifsource.com</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>nsarychev</id>
+			<name>Nikolay Sarychev</name>
+			<email>massifsource@gmail.com</email>
+		</developer>
+	</developers>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://development.massifsource.com:8080</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>massifsource@gmail.com</address>
+				</configuration>
+				<sendOnError>true</sendOnError>
+				<sendOnFailure>true</sendOnFailure>
+				<sendOnSuccess>true</sendOnSuccess>
+				<sendOnWarning>true</sendOnWarning>
+			</notifier>
+		</notifiers>
+	</ciManagement>
 
 	<modules>
 		<module>ms</module>
 		<module>das</module>
 	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<linkXref>true</linkXref>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>1.6</targetJdk>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.13</version>
+				<configuration>
+					<skip>${skip.checkstyle}</skip>
+					<includeTestSourceDirectory>false</includeTestSourceDirectory>
+					<failOnViolation>
+						${fail.on.checkstyle.violation}
+					</failOnViolation>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
