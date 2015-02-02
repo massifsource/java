@@ -1,0 +1,101 @@
+# Core
+
+spring:
+  # The name of the application
+  application.name: das
+
+  # The name of the main config file, default is application
+  config.name: application
+
+  # Profiles that should be active
+  profiles.active:
+
+  # Configuration for SpringApplication setters
+  main:
+    web-environment: 
+    show-banner: false
+    log-startup-info: true
+   
+
+
+# Server settings (ServerProperties)
+server:
+  port: 6555
+#  address: 127.0.0.1
+  sessionTimeout: 30
+  contextPath:
+
+  # Tomcat specifics
+  tomcat:
+    accessLogEnabled: false
+    protocolHeader: x-forwarded-proto
+    remoteIpHeader: x-forwarded-for
+    basedir:
+    backgroundProcessorDelay: 30 # secs
+
+
+---
+# Auto-Configure
+
+spring:
+  messages:
+    basename: messages
+    
+  profiles:
+    active: hazelcast.instance
+    
+  batch:
+    schema: 
+
+  database:
+    schema: 
+    platform: all
+
+  datasource:
+    driverClassName:
+    url:
+    username: 
+    password:
+    max-active: 
+    max-idle: 
+    test-on-borrow:
+    test-on-return:
+    validation-query:
+
+
+  jpa:
+    open-in-view:
+    show-sql:
+    database-platform:
+    generate-ddl:
+    properties:
+    hibernate:
+      naming-strategy:
+      cache-provider:
+      ddl-auto:
+
+
+  thymeleaf:
+    prefix: 
+    suffix: 
+    mode: 
+    cache: 
+
+# actuator
+
+endpoints:
+  beans:
+    path: 
+    sensitive: 
+  dump:
+  env:
+  health:
+  info:
+  metrics:
+  shutdown:
+  trace:
+
+management:
+  port: 6556
+
+security:

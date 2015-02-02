@@ -1,0 +1,35 @@
+<configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>[%level] %d{HH:mm:ss.SSS} %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="STDOUT-NOPREFIX" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg
+            </pattern>
+        </encoder>
+    </appender>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+	<logger name="com.hazelcast" level="ERROR" />
+	<logger name="org.springframework" level="ERROR" />
+	<logger name="com.massifsource.sample.damp" level="INFO" />
+	<logger name="com.massifsource.sample.damp.ms.cli" level="INFO">
+	   <appender-ref ref="STDOUT-NOPREFIX" />
+    </logger>
+	<logger name="org.testng" level="WARN" />
+	<logger name="org.apache" level="WARN" />
+	
+	<!-- Spring's CachingConnectionFactory throws an exception if broker is unavailable, 
+	   since we are using embedded broker, it gets broken down before the factory and causes a harmless warning. 
+	   Below config prevents that warning from being displayed to console -->
+	<logger name="org.springframework.jms.connection.CachingConnectionFactory" level="ERROR" />
+	
+</configuration>

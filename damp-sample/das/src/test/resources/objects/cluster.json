@@ -1,0 +1,23 @@
+{    
+    "address":{
+        "port":5701, 
+        "host":"127.0.0.1", 
+        "id":1, 
+        "inetAddress":"127.0.0.1", 
+        "scopeId":"null", 
+        "factoryId":0, 
+        "ipv6":"false", 
+        "ipv4":"true", 
+        "inetSocketAddress":"127.0.0.1":"5701", 
+        "scopedHost":"127.0.0.1"
+        }, 
+    "uuid":"2a21ea2d-4d77-4c7b-8e55-bb8af6db5d06", 
+    "id":2, 
+    "port":5701, 
+    "inetAddress":"127.0.0.1", 
+    "factoryId":0, 
+    "inetSocketAddress":"127.0.0.1":"5701", 
+    "lastPing":0, 
+    "lastRead":1390992520998, 
+    "lastWrite":0
+}

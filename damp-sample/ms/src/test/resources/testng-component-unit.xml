@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+  
+<suite name="ms-component-unit" verbose="1" parallel="false">
+  <test name="component-unit" parallel="false">
+    <packages>
+        <!-- <package name="com.massifsource.sample.damp.ms.test.component.unit" /> -->
+    </packages>
+  </test>
+</suite>

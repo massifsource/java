@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+  
+<suite name="das-integration" verbose="1" >
+  <test name="component" >
+    <packages>
+        <package name="com.massifsource.sample.damp.das.test.integration" />
+    </packages>
+  </test>
+</suite>

@@ -6,17 +6,15 @@
 package com.massifsource.sample.damp.das.domain;
 
 
-public enum PsapTrunkMemberStatus implements CacheableEnum {
+public enum ProductStatus implements CacheableEnum {
 
-    InService("In Service"),
-    MOOS("MOOS"),
-    AOOS("AOOS"),
-    AOOS_RNA("AOOS-RNA"),
-    AOOS_IN_TEST("AOOS-IN-TEST");
+    AVAILABLE("Available"),
+    OUT_OF_STOCK("Out Of Stock"),
+    COMING_SOON("Coming Soon");
 
     private String displayName;
     
-    private PsapTrunkMemberStatus(String displayName) {
+    private ProductStatus(String displayName) {
         this.displayName = displayName;
     }
 

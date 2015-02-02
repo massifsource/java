@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/jms 
+                           http://www.springframework.org/schema/jms/spring-jms.xsd
+                           http://activemq.apache.org/schema/core 
+                           http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+	<context:component-scan base-package="com.massifsource.sample.damp.ms.jms" />
+	<context:property-placeholder
+		ignore-unresolvable="true" />
+
+	<jms:listener-container error-handler="">
+		<jms:listener ref="dataReplicationMessageListener"
+			method="process" destination="com.massifsource.sample.damp.ms.jms.replicate"
+			response-destination="com.massifsource.sample.damp.ms.jms.response" />
+	</jms:listener-container>
+
+	<amq:connectionFactory id="simpleConnectionFactory"
+		brokerURL="tcp://${jms.interface.hostname}:${jms.interface.port}" />
+
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory"
+		p:targetConnectionFactory-ref="simpleConnectionFactory" depends-on="broker" />
+
+	<!-- Embedded ActiveMQ Broker -->
+	<amq:broker id="broker" brokerName="replicationBroker"
+		useJmx="true" persistent="false" useShutdownHook="false">
+		<amq:managementContext>
+			<amq:managementContext createConnector="true" />
+		</amq:managementContext>
+		<amq:transportConnectors>
+			<amq:transportConnector uri="vm://localhost:${jms.interface.port}" />
+			<amq:transportConnector
+				uri="tcp://${jms.interface.hostname}:${jms.interface.port}" />
+		</amq:transportConnectors>
+		<amq:systemUsage>
+			<amq:systemUsage>
+				<amq:memoryUsage>
+					<amq:memoryUsage limit="64 mb"/>
+				</amq:memoryUsage>
+                <amq:storeUsage>
+                    <amq:storeUsage limit="10 gb"/>
+                </amq:storeUsage>
+                <amq:tempUsage>
+                    <amq:tempUsage limit="10 gb"/>
+                </amq:tempUsage>
+                </amq:systemUsage>
+		</amq:systemUsage>
+	</amq:broker>
+
+</beans>
+            

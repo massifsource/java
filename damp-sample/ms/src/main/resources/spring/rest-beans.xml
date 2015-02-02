@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:component-scan base-package="com.massifsource.sample.damp.ms.rest" />
+	<context:property-placeholder ignore-unresolvable="true"/>
+		
+	<bean id="sourceRestService" class="com.massifsource.sample.damp.ms.rest.RestService" 
+	   p:restUrlProvider-ref="sourceRestUrlProvider"/>
+	   
+    <bean id="destinationRestService" class="com.massifsource.sample.damp.ms.rest.RestService" 
+        p:restUrlProvider-ref="destinationRestUrlProvider"/>
+        
+    <bean id="sourceRestUrlProvider" class="com.massifsource.sample.damp.ms.rest.RestUrlProvider" 
+        p:hostname="${source.rest.hostname}" p:port="${source.rest.port}"/>
+        
+    <bean id="destinationRestUrlProvider" class="com.massifsource.sample.damp.ms.rest.RestUrlProvider" 
+        p:hostname="${destination.rest.hostname}" p:port="${destination.rest.port}"/>
+
+</beans>
+            
+
+            

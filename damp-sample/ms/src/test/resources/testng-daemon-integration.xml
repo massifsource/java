@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+  
+<suite name="ms-component-integration" verbose="1" >
+  <test name="component" >
+    <packages>
+        <package name="com.massifsource.sample.damp.ms.test.integration.instance" />
+        <package name="com.massifsource.sample.damp.ms.test.daemon.integration" />
+    </packages>
+  </test>
+
+</suite>

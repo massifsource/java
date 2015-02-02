@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:hz="http://www.hazelcast.com/schema/spring" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.hazelcast.com/schema/spring http://www.hazelcast.com/schema/spring/hazelcast-spring-3.3.xsd">
+
+	<context:property-placeholder
+		ignore-unresolvable="true" location="classpath*:spring/hazelcast-constants.properties" />
+	
+	<context:component-scan base-package="com.massifsource.sample.damp.das.dao.hazelcast" />
+	
+	<bean class="com.massifsource.sample.damp.das.hazelcast.support.HazelcastInstanceProvider" />
+	
+	<beans profile="hazelcast.client">
+		<bean id="hazelcastClientCache"
+			class="com.massifsource.sample.damp.das.hazelcast.support.HazelcastClientCache"
+			scope="prototype" />
+		<hz:client id="hazelcastClient">
+			<hz:group password="${hazelcast.cluster.group.password}"
+				name="${hazelcast.cluster.group.name}" />
+			<hz:network smart-routing="true" connection-attempt-period="1000" connection-attempt-limit="2">
+				<hz:member>${hazelcast.client.member.1}</hz:member>
+				<hz:member>${hazelcast.client.member.2}</hz:member>
+				<hz:member>${hazelcast.client.member.3}</hz:member>
+			</hz:network>
+		</hz:client>
+	</beans>
+
+	<beans profile="hazelcast.instance">
+		<bean id="synchronizer"
+			class="com.massifsource.sample.damp.das.hazelcast.support.WanSynchronizer" />
+
+		<bean id="hazelcastInstanceCache"
+			class="com.massifsource.sample.damp.das.hazelcast.support.HazelcastInstanceCache"
+			scope="prototype" />
+
+		<hz:hazelcast id="hazelcastInstance">
+
+			<hz:config>
+				<hz:group password="${hazelcast.cluster.group.password}"
+					name="${hazelcast.cluster.group.name}" />
+				<hz:properties>
+					<hz:property name="hazelcast.logging.type">slf4j</hz:property>
+				</hz:properties>
+				<hz:wan-replication name="wan.all.sites.replication">
+					<hz:target-cluster
+						group-password="${wan.all.sites.replication.cluster.1.group.password}"
+						group-name="${wan.all.sites.replication.cluster.1.group.name}">
+						<hz:replication-impl>com.hazelcast.wan.impl.WanNoDelayReplication</hz:replication-impl>
+						<hz:end-points>
+							<hz:address>${wan.all.sites.replication.cluster.1.member.1}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.1.member.2}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.1.member.3}</hz:address>
+						</hz:end-points>
+					</hz:target-cluster>
+					<hz:target-cluster
+						group-password="${wan.all.sites.replication.cluster.2.group.password}"
+						group-name="${wan.all.sites.replication.cluster.2.group.name}">
+						<hz:replication-impl>com.hazelcast.wan.impl.WanNoDelayReplication</hz:replication-impl>
+						<hz:end-points>
+							<hz:address>${wan.all.sites.replication.cluster.2.member.1}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.2.member.2}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.2.member.3}</hz:address>
+						</hz:end-points>
+					</hz:target-cluster>
+					<hz:target-cluster
+						group-password="${wan.all.sites.replication.cluster.3.group.password}"
+						group-name="${wan.all.sites.replication.cluster.3.group.name}">
+						<hz:replication-impl>com.hazelcast.wan.impl.WanNoDelayReplication</hz:replication-impl>
+						<hz:end-points>
+							<hz:address>${wan.all.sites.replication.cluster.3.member.1}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.3.member.2}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.3.member.3}</hz:address>
+						</hz:end-points>
+					</hz:target-cluster>
+					<hz:target-cluster
+						group-password="${wan.all.sites.replication.cluster.4.group.password}"
+						group-name="${wan.all.sites.replication.cluster.4.group.name}">
+						<hz:replication-impl>com.hazelcast.wan.impl.WanNoDelayReplication</hz:replication-impl>
+						<hz:end-points>
+							<hz:address>${wan.all.sites.replication.cluster.4.member.1}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.4.member.2}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.4.member.3}</hz:address>
+						</hz:end-points>
+					</hz:target-cluster>
+					<hz:target-cluster
+						group-password="${wan.all.sites.replication.cluster.5.group.password}"
+						group-name="${wan.all.sites.replication.cluster.5.group.name}">
+						<hz:replication-impl>com.hazelcast.wan.impl.WanNoDelayReplication</hz:replication-impl>
+						<hz:end-points>
+							<hz:address>${wan.all.sites.replication.cluster.5.member.1}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.5.member.2}</hz:address>
+							<hz:address>${wan.all.sites.replication.cluster.5.member.3}</hz:address>
+						</hz:end-points>
+					</hz:target-cluster>
+				</hz:wan-replication>
+				<hz:network port="${hazelcast.instance.port}"
+					port-auto-increment="false">
+					<hz:join>
+						<hz:multicast enabled="${hazelcast.cluster.multicast.enabled:true}"
+							multicast-group="${hazelcast.cluster.multicast.group}"
+							multicast-port="${hazelcast.cluster.multicast.port}" />
+						<hz:tcp-ip enabled="${hazelcast.cluster.tcp.ip.enabled:false}">
+							<hz:members>${hazelcast.cluster.tcp.ip.cluster.members:127.0.0.1}</hz:members>
+						</hz:tcp-ip>
+					</hz:join>
+					<hz:interfaces enabled="true">
+						<hz:interface>${hazelcast.instance.address}</hz:interface>
+					</hz:interfaces>
+				</hz:network>
+				<hz:map name="${map.name.product.state}"
+					backup-count="1" read-backup-data="false">
+					<hz:wan-replication-ref name="wan.all.sites.replication"
+						merge-policy="com.hazelcast.map.merge.PassThroughMergePolicy" />
+					<hz:indexes>
+						<hz:index attribute="productId" />
+					</hz:indexes>
+				</hz:map>
+				<hz:map name="${map.name.subscription}" backup-count="1"
+					read-backup-data="false">
+					<hz:wan-replication-ref name="wan.all.sites.replication"
+						merge-policy="com.hazelcast.map.merge.PassThroughMergePolicy" />
+					<hz:indexes>
+						<hz:index attribute="id" />
+					</hz:indexes>
+				</hz:map>
+				<hz:map name="replication_probe"
+                    backup-count="1" read-backup-data="false">
+                    <hz:wan-replication-ref name="wan.all.sites.replication"
+                        merge-policy="com.hazelcast.map.merge.PassThroughMergePolicy" />
+                </hz:map>
+			</hz:config>
+		</hz:hazelcast>
+	</beans>
+
+	<beans profile="hazelcast.test.data">
+		<bean
+			class="com.massifsource.sample.damp.das.dao.hazelcast.test.ProductStateTestDataProvider" />
+		
+	</beans>
+
+</beans>
